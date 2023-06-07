@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../../Provier/AuthProvider";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import { Link } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, userProfile } = useContext(AuthContext);
 
   const {
     register,
@@ -12,10 +14,39 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log(data.name, data.photo, data.email, data.password);
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        userProfile(data.name, data.photo)
+          .then(() => {
+            const saveUser = { name: data.name, email: data.email };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(saveUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  reset();
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User SignUp successfully!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+                console.log(data);
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -27,7 +58,7 @@ const Register = () => {
   return (
     <div className="flex justify-center items-center mb-6">
       <form
-        className="md:w-6/12 bg-gray-400 rounded p-6 shadow-md"
+        className="lg:w-6/12 bg-gray-400 rounded p-6 shadow-md"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-2xl font-bold mb-6">Registration</h2>
@@ -138,11 +169,22 @@ const Register = () => {
           ></textarea>
         </div>
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+          className="btn-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           type="submit"
         >
           Register
         </button>
+        <br />
+        <label className="text-white">
+          Already have an account?
+          <Link
+            to="/login"
+            className="text-white label-text-alt link link-hover font-bold text-xl"
+          >
+            {" "}
+            Log in
+          </Link>
+        </label>
       </form>
     </div>
   );

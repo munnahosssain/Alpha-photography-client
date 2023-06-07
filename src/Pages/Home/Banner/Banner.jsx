@@ -18,7 +18,7 @@ const Banner = () => {
     >
       <div>
         <img src={image1} />
-        <p className="legend w-2/3 absolute z-10 text-white">
+        <p className="legend">
           The sunrise brings a symphony of colors to the sky, as if the universe
           is rejoicing the birth of a new day. The warm golden light bathes
           everything it touches, filling hearts with hope and optimism. With the
