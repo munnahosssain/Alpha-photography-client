@@ -2,26 +2,42 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { Link } from "react-router-dom";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const Register = () => {
   const { createUser, userProfile } = useContext(AuthContext);
 
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data.name, data.photo, data.email, data.password);
+    console.log(
+      data.name,
+      data.email,
+      data.photoUrl,
+      data.gender,
+      data.phoneNumber,
+      data.message
+    );
+
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
-        userProfile(data.name, data.photo)
+        userProfile(data.name, data.photoUrl)
           .then(() => {
-            const saveUser = { name: data.name, email: data.email };
+            const saveUser = {
+              name: data.name,
+              email: data.email,
+              photo: data.photoUrl,
+              gender: data.gender,
+              number: data.phoneNumber,
+              address: data.address,
+            };
             fetch("http://localhost:5000/users", {
               method: "POST",
               headers: {
@@ -34,7 +50,7 @@ const Register = () => {
                 if (data.insertedId) {
                   reset();
                   Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: "User SignUp successfully!",
                     showConfirmButton: false,
