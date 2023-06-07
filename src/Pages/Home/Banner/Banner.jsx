@@ -12,7 +12,7 @@ const Banner = () => {
   return (
     <Carousel
       showArrows={true}
-      // autoPlay={true}
+      autoPlay={true}
       useKeyboardArrows={true}
       className="text-center"
     >
