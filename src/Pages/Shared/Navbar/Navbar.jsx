@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
+// import logo from "../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.png";
+import { AuthContext } from "../../../Provier/AuthProvider";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+  // console.log(user);
+
   const menuItems = (
     <>
       <li>
@@ -14,18 +19,20 @@ const Navbar = () => {
       <li>
         <Link to="/classes">Classes</Link>
       </li>
-      <li>
-        <Link to="/dashboard">Dashboard </Link>
-      </li>
-      {
+      {user && (
+        <li>
+          <Link to="/dashboard">Dashboard </Link>
+        </li>
+      )}
+      {user && (
         <li>
           <div className="avatar">
             <div className="w-6 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-              <img src="" />
+              <img title={user?.displayName} src={user?.photoURL} />
             </div>
           </div>
         </li>
-      }
+      )}
     </>
   );
   return (
