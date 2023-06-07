@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.legend{
+    font-size: 2em !important;
+    background-color: transparent !important;
+    background-color: #353232 !important;
+}
