@@ -70,7 +70,7 @@ const Login = () => {
               <label className="block text-gray-700 mb-2" htmlFor="password">
                 Password
               </label>
-              <div className="flex">
+              <div className="flex justify-center items-center relative">
                 <input
                   className="border border-gray-300 px-4 py-2 w-full"
                   {...register("password", {
@@ -81,9 +81,15 @@ const Login = () => {
                   placeholder="Password"
                 />
                 {show ? (
-                  <BsEyeSlashFill onClick={handleShowPassword} />
+                  <BsEyeSlashFill
+                    className="cursor-pointer right-3 absolute"
+                    onClick={handleShowPassword}
+                  />
                 ) : (
-                  <BsEyeFill onClick={handleShowPassword} />
+                  <BsEyeFill
+                    className="cursor-pointer  right-3 absolute"
+                    onClick={handleShowPassword}
+                  />
                 )}
               </div>
               {errors.password && (
