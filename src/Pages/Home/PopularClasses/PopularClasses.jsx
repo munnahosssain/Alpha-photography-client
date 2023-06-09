@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
-import PopularInstructor from "./PopularInstructor";
+import React, { useEffect, useState } from "react";
+import PopularClass from "./PopularClass";
 
-const PopularInstructors = () => {
-  const [popularInstructors, setPopularInstructors] = useState([]);
+const PopularClasses = () => {
+  const [popularClasses, setPopularClasses] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/homeInstructors"
+          "http://localhost:5000/popularClasses"
         );
-        setPopularInstructors(response.data);
+        setPopularClasses(response.data);
       } catch (error) {
         console.log("error", error);
       }
@@ -20,9 +20,9 @@ const PopularInstructors = () => {
   }, []);
 
   return (
-    <div className="my-6">
-      <div className="mx-auto text-center lg:w-2/4 my-6">
-        <h1 className="text-4xl font-semibold mb-2">Popular Instructors</h1>
+    <div className="lg:mx-48 my-12 p-4">
+      <div className="mx-auto text-center lg:w-2/4">
+        <h1 className="text-4xl font-semibold mb-2">Popular Classes</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati
           aspernatur reiciendis perferendis doloremque molestiae optio corrupti
@@ -30,9 +30,9 @@ const PopularInstructors = () => {
           doloremque.
         </p>
       </div>
-      <PopularInstructor popularInstructors={popularInstructors} />
+      <PopularClass popularClasses={popularClasses} />
     </div>
   );
 };
 
-export default PopularInstructors;
+export default PopularClasses;

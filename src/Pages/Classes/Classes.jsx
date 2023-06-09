@@ -19,7 +19,7 @@ const Classes = () => {
   return (
     <div className="lg:mx-24 my-12">
       <div className="mx-auto text-center lg:w-2/4">
-        <h1 className="text-4xl font-semibold mb-2">Classes Available</h1>
+        <h1 className="text-4xl font-semibold mb-2">Available Classes</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati
           aspernatur reiciendis perferendis doloremque molestiae optio corrupti
