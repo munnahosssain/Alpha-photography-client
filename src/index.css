@@ -2,16 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-.legend{
-    font-size: 2em !important;
-    background-color: transparent !important;
-    background-color: #353232 !important;
+.legend {
+  font-size: 2em !important;
+  background-color: transparent !important;
+  background-color: #353232 !important;
 }
 
-.shot {
-    padding: 20%;
-    background: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: linear-gradient(to bottom, #00000080, #00000080), url('../src/assets/images/shot.jpg');
+@media (max-width: 1024px) {
+    .legend {
+      font-size: 1.5em !important;
+    }
   }
+
+@media (max-width: 768px) {
+  .legend {
+    font-size: 1em !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .legend {
+    font-size: .5em !important
+  }
+}
+
+@media (max-width: 320px) {
+  .legend {
+    font-size: .3em !important;
+  }
+}
+
+
+.shot {
+  padding: 20%;
+  background: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to bottom, #00000080, #00000080),
+    url("../src/assets/images/shot.jpg");
+}

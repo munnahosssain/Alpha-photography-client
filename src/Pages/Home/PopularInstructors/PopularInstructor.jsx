@@ -4,7 +4,7 @@ import { FaLocationArrow } from "react-icons/fa";
 
 const PopularInstructor = ({ popularInstructors }) => {
   return (
-    <div className="grid lg:grid-cols-3 gap-12 lg:mx-48 mx-auto p-4">
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-12 lg:mx-48 mx-auto p-4">
       {popularInstructors.map((popularInstructor) => (
         <div key={popularInstructor._id}>
           <div className="card w-full glass">

@@ -2,7 +2,7 @@ import React from "react";
 
 const PopularClass = ({ popularClasses }) => {
   return (
-    <div className="grid grid-cols-3 gap-12">
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-12">
       {popularClasses?.map((popularClass) => (
         <div
           key={popularClass._id}
