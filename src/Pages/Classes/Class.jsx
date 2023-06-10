@@ -27,7 +27,7 @@ const Class = ({ course }) => {
         price: price,
         email: user.email,
       };
-      console.log(classesItem);
+      // console.log(classesItem);
       fetch("http://localhost:5000/myClasses", {
         method: "POST",
         headers: {

@@ -8,7 +8,7 @@ const useCourse = () => {
 
   const { refetch, data: course = [] } = useQuery({
     queryKey: ["myClasses", user?.email],
-    enabled: !loading,
+    enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure(`/myClasses?email=${user?.email}`);
       // console.log("res from axios", res);

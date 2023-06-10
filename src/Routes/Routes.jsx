@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard",
+        path: "selectedClass",
         element: <SelectedClass />,
       },
       {

@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from "react";
-import useAxiosSecure from "../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
-import useAuth from "../hooks/useAuth";
-import { Link } from "react-router-dom";
-import useCourse from "../hooks/useCourse";
-import { FaTrashAlt } from "react-icons/fa";
+import React from "react";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { FaTrashAlt } from "react-icons/fa";
+import useBookingClass from "../hooks/useBookingClass";
 
 const SelectedClass = () => {
-  const [courses, setCourse] = useState([]);
-  const { user, loading } = useAuth();
-    const [course, refetch] = useCourse();
-  console.log(courses);
+  const [myClasses, isLoading, refetch] = useBookingClass();
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -32,19 +26,11 @@ const SelectedClass = () => {
             if (data.deletedCount > 0) {
               refetch();
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
-              console.log(data);
             }
           });
       }
     });
   };
-
-    useEffect(() => {
-      fetch(`http://localhost:5000/myClasses?email=${user?.email}`)
-        .then((res) => res.json())
-        .then((data) => setCourse(data));
-    }, [user?.email]);
-
 
   return (
     <div className="overflow-x-auto">
@@ -60,7 +46,7 @@ const SelectedClass = () => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((student, index) => (
+          {myClasses.map((student, index) => (
             <tr key={student._id}>
               <th>{index + 1}</th>
               <td>
