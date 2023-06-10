@@ -7,6 +7,11 @@ import Login from "../Pages/Shared/Login/Login";
 import Register from "../Pages/Shared/Register/Register";
 import Instructors from "../Pages/Instructors/Instructors";
 import Classes from "../Pages/Classes/Classes";
+import Dashboard from "../Layout/Dashboard";
+import PrivateRoute from "../Routes/PrivateRoute"
+import SelectedClass from "../Dashboard/SelectedClass";
+import EnrolledClass from "../Dashboard/EnrolledClass";
+import Payment from "../Dashboard/Payment";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +38,28 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />,
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard",
+        element: <SelectedClass />,
+      },
+      {
+        path: "/dashboard/enrolledClass",
+        element: <EnrolledClass />,
+      },
+      {
+        path: "/dashboard/payment",
+        element: <Payment />,
       },
     ],
   },

@@ -11,7 +11,7 @@ const Navbar = () => {
       .then(() => {
         // Sign-out successful.
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -27,6 +27,11 @@ const Navbar = () => {
       <li>
         <Link to="/classes">Classes</Link>
       </li>
+      {user && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
       {user && (
         <li>
           <div className="avatar">

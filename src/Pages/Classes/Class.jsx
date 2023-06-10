@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaLocationArrow } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Class = ({ classes }) => {
+  const [availableSeats, setAvailableSeats] = useState(0);
+
   return (
     <div>
       <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-3">

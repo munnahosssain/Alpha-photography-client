@@ -4,6 +4,7 @@ import Class from "./Class";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {

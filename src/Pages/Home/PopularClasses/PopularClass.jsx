@@ -1,7 +1,6 @@
 import React from "react";
 
 const PopularClass = ({ popularClasses }) => {
-  console.log(popularClasses);
   return (
     <div className="grid grid-cols-3 gap-12">
       {popularClasses?.map((popularClass) => (

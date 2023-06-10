@@ -7,3 +7,11 @@
     background-color: transparent !important;
     background-color: #353232 !important;
 }
+
+.shot {
+    padding: 20%;
+    background: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to bottom, #00000080, #00000080), url('../src/assets/images/shot.jpg');
+  }
