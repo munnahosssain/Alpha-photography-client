@@ -28,7 +28,11 @@ const Classes = () => {
           doloremque.
         </p>
       </div>
-      <Class classes={classes} />
+      <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-3">
+        {classes.map((course) => (
+          <Class key={course._id} course={course}></Class>
+        ))}
+      </div>
     </div>
   );
 };
