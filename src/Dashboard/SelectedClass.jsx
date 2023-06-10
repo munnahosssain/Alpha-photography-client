@@ -1,21 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
+import useCourse from "../hooks/useCourse";
+import { FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const SelectedClass = () => {
+  const [courses, setCourse] = useState([]);
   const { user, loading } = useAuth();
-  const [axiosSecure] = useAxiosSecure();
+    const [course, refetch] = useCourse();
+  console.log(courses);
 
-  const { data = [], refetch } = useQuery({
-    queryKey: ["courses", user?.email],
-    enabled: !loading,
-    queryFn: async () => {
-      const res = await axiosSecure(`dashboard/myClasses?email=${user?.email}`);
-      console.log("res from axios", res);
-      return res.data;
-    },
-  });
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/myClasses/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              console.log(data);
+            }
+          });
+      }
+    });
+  };
+
+    useEffect(() => {
+      fetch(`http://localhost:5000/myClasses?email=${user?.email}`)
+        .then((res) => res.json())
+        .then((data) => setCourse(data));
+    }, [user?.email]);
+
 
   return (
     <div className="overflow-x-auto">
@@ -23,7 +52,7 @@ const SelectedClass = () => {
         <thead>
           <tr>
             <th>S/N</th>
-            <th>Name</th>
+            <th>Instructor</th>
             <th>Email</th>
             <th>Available Seat</th>
             <th>PAY</th>
@@ -31,30 +60,39 @@ const SelectedClass = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>1</th>
-            <td>
-              <div className="flex items-center space-x-3">
-                <div className="avatar">
-                  <div className="mask mask-squircle w-12 h-12">
-                    <img
-                      src="/tailwind-css-component-profile-2@56w.png"
-                      alt="Avatar Tailwind CSS Component"
-                    />
+          {courses.map((student, index) => (
+            <tr key={student._id}>
+              <th>{index + 1}</th>
+              <td>
+                <div className="flex items-center space-x-3">
+                  <div className="avatar">
+                    <div className="mask w-12 h-12">
+                      <img
+                        src={student.image}
+                        alt="Avatar Tailwind CSS Component"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-bold">{student.instructor}</div>
                   </div>
                 </div>
-                <div>
-                  <div className="font-bold">Hart Hagerty</div>
-                </div>
-              </div>
-            </td>
-            <td>Zemlak</td>
-            <td>Purple</td>
-            <td>Purple</td>
-            <th>
-              <button className="btn btn-ghost btn-xs">details</button>
-            </th>
-          </tr>
+              </td>
+              <td>{student.email}</td>
+              <td>{student.available_seats}</td>
+              <td>
+                <Link to="/payment">Pay Now</Link>
+              </td>
+              <th>
+                <button
+                  onClick={() => handleDelete(student._id)}
+                  className="btn-xs"
+                >
+                  <FaTrashAlt size={24} />
+                </button>
+              </th>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
