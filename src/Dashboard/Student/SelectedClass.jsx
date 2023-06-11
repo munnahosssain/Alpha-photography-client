@@ -2,7 +2,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
-import useBookingClass from "../hooks/useBookingClass";
+import useBookingClass from "../../hooks/useBookingClass";
 
 const SelectedClass = () => {
   const [myClasses, isLoading, refetch] = useBookingClass();
