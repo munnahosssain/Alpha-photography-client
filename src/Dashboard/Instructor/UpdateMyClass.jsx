@@ -17,7 +17,7 @@ const UpdateMyClass = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    fetch(`http://localhost:5000/classes/${_id}`, {
+    fetch(`https://alpha-photography-server.vercel.app/classes/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

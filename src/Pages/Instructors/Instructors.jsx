@@ -8,7 +8,7 @@ const Instructors = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/instructors");
+        const response = await axios.get("https://alpha-photography-server.vercel.app/instructors");
         setInstructor(response.data);
       } catch (error) {
         console.log("error", error);

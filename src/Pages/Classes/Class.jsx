@@ -28,7 +28,7 @@ const Class = ({ course }) => {
         email: user.email,
       };
       // console.log(classesItem);
-      fetch("http://localhost:5000/myClasses", {
+      fetch("https://alpha-photography-server.vercel.app/myClasses", {
         method: "POST",
         headers: {
           "content-type": "application/json",

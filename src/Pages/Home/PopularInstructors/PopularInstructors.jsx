@@ -10,7 +10,7 @@ const PopularInstructors = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/homeInstructors"
+          "https://alpha-photography-server.vercel.app/homeInstructors"
         );
         setPopularInstructors(response.data);
       } catch (error) {

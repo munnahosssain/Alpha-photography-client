@@ -8,7 +8,7 @@ const Classes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/classes");
+        const response = await axios.get("https://alpha-photography-server.vercel.app/classes?approve=true");
         setClasses(response.data);
       } catch (error) {
         console.log("error", error);

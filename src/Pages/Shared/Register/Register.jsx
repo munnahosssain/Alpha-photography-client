@@ -30,7 +30,7 @@ const Register = () => {
               address: data.address,
             };
             // console.log(saveUser);
-            fetch("http://localhost:5000/students", {
+            fetch("https://alpha-photography-server.vercel.app/students", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -102,12 +102,15 @@ const Register = () => {
           </label>
           <input
             className="border border-gray-300 px-4 py-2 w-full"
-            {...register("password", { required: "Password is required" })}
+            {...register("password", { required: true, minLength: 6 })}
             type="password"
             id="password"
           />
-          {errors.password && (
-            <span className="text-red-500">{errors.password.message}</span>
+          {errors.password?.type === "required" && (
+            <span>Password is required</span>
+          )}
+          {errors.password?.type === "minLength" && (
+            <span>Password must 6 characters or grater</span>
           )}
         </div>
         <div className="mb-4">

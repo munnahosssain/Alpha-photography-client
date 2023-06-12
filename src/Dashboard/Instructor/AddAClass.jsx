@@ -26,7 +26,7 @@ const AddAClass = () => {
       email: data.email,
       status: (data.status = "pending"),
     };
-    fetch("http://localhost:5000/classes", {
+    fetch("https://alpha-photography-server.vercel.app/classes", {
       method: "POST",
       headers: {
         "content-type": "application/json",

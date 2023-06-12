@@ -17,6 +17,7 @@ import MyClass from "../Dashboard/Instructor/MyClass";
 import ManageClasses from "../Dashboard/Admin/ManageClasses";
 import ManageUsers from "../Dashboard/Admin/ManageUsers";
 import UpdateMyClass from "../Dashboard/Instructor/UpdateMyClass";
+import Feedback from "../Dashboard/Admin/Feedback";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
         path: "/dashboard/manageUsers",
         element: <ManageUsers />,
       },
+      {
+        path: "feedback/:id",
+        element: <Feedback></Feedback>,
+        loader: ({ params }) => fetch(`https://alpha-photography-server.vercel.app/feedback/${params.id}`)
+    },
       // For Instructor
       {
         path: "/dashboard/addAClass",
@@ -76,7 +82,7 @@ const router = createBrowserRouter([
         path: "/dashboard/updateMyClass/:id",
         element: <UpdateMyClass />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/classes/${params.id}`),
+          fetch(`https://alpha-photography-server.vercel.app/classes/${params.id}`),
       },
       // For Students
       {

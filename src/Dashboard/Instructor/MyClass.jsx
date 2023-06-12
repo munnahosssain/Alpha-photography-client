@@ -7,7 +7,7 @@ const MyClass = () => {
   const { user } = useAuth();
   const { data: student = [], refetch } = useQuery(["students"], async () => {
     const res = await fetch(
-      `http://localhost:5000/student?email=${user?.email}`
+      `https://alpha-photography-server.vercel.app/student?email=${user?.email}`
     );
     return res.json();
   });
