@@ -26,7 +26,6 @@ const AddAClass = () => {
       email: data.email,
       status: (data.status = "pending"),
     };
-    // console.log(instructors);
     fetch("http://localhost:5000/classes", {
       method: "POST",
       headers: {

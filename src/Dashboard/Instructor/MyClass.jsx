@@ -21,6 +21,7 @@ const MyClass = () => {
               <th>#</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Available</th>
               <th>Status</th>
               <th>Update</th>
               <th>Feedback</th>
@@ -32,6 +33,7 @@ const MyClass = () => {
                 <th>{index + 1}</th>
                 <td>{addStudent.name}</td>
                 <td>{addStudent.email}</td>
+                <td>{addStudent.seats}</td>
                 <td>{addStudent.status}</td>
                 <td>
                   <Link to={`/dashboard/updateMyClass/${addStudent._id}`}>Update</Link>

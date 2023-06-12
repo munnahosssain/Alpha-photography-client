@@ -1,13 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
 import { useLoaderData } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const UpdateMyClass = () => {
   const { user } = useAuth();
   const data = useLoaderData();
-  const { available_seats, name, image, price } = data;
+  const {_id, available_seats, name, image, price } = data;
   const {
     reset,
     register,
@@ -15,15 +15,27 @@ const UpdateMyClass = () => {
     formState: { errors },
   } = useForm();
 
-  const { data: student = [], refetch } = useQuery(["students"], async () => {
-    const res = await fetch(
-      `http://localhost:5000/student?email=${user?.email}`
-    );
-    return res.json();
-  });
-  
   const onSubmit = (data) => {
-    
+    console.log(data);
+    fetch(`http://localhost:5000/classes/${_id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Update Your Data",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
