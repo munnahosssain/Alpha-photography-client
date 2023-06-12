@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PopularInstructor from "./PopularInstructor";
+import Fade from 'react-reveal/Fade';
 
 const PopularInstructors = () => {
   const [popularInstructors, setPopularInstructors] = useState([]);
@@ -21,6 +22,7 @@ const PopularInstructors = () => {
 
   return (
     <div className="my-6">
+      <Fade bottom cascade>
       <div className="mx-auto text-center lg:w-2/4 my-6">
         <h1 className="text-4xl font-semibold mb-2">Popular Instructors</h1>
         <p>
@@ -30,6 +32,7 @@ const PopularInstructors = () => {
           doloremque.
         </p>
       </div>
+      </Fade>
       <PopularInstructor popularInstructors={popularInstructors} />
     </div>
   );

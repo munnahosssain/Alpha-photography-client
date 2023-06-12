@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import PopularClass from "./PopularClass";
+import Fade from 'react-reveal/Fade';
 
 const PopularClasses = () => {
   const [popularClasses, setPopularClasses] = useState([]);
@@ -21,6 +22,7 @@ const PopularClasses = () => {
 
   return (
     <div className="lg:mx-48 my-12 p-4">
+       <Fade bottom cascade>
       <div className="mx-auto text-center lg:w-2/4">
         <h1 className="text-4xl font-semibold mb-2">Popular Classes</h1>
         <p>
@@ -30,7 +32,10 @@ const PopularClasses = () => {
           doloremque.
         </p>
       </div>
+      </Fade>
+      <Fade bottom>
       <PopularClass popularClasses={popularClasses} />
+      </Fade>
     </div>
   );
 };
