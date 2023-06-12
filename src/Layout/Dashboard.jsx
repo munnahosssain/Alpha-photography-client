@@ -5,7 +5,7 @@ import useAuth from "../hooks/useAuth";
 const Dashboard = () => {
   const { user } = useAuth();
   const isAdmin = false;
-  const isInstructor = false;
+  const isInstructor = true;
 
   return (
     <div className="drawer lg:drawer-open">
@@ -58,6 +58,12 @@ const Dashboard = () => {
             )
           ) : (
             <>
+              <div className="avatar my-4">
+                <div className="mx-auto w-24 rounded-full">
+                  <img src={user.photoURL} />
+                </div>
+              </div>
+              <div className="mb-4">Welcome, {user.displayName}</div>
               <li>
                 <Link to="/dashboard/selectedClass">Selected Class</Link>
               </li>
@@ -68,8 +74,9 @@ const Dashboard = () => {
                 <Link to="/dashboard/payment">Payment History</Link>
               </li>
             </>
-          )}
-           <div className="divider" />
+          )
+          }
+          <div className="divider" />
           <li>
             <Link to="/">Home</Link>
           </li>

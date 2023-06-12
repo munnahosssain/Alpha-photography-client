@@ -15,19 +15,10 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(
-      data.name,
-      data.email,
-      data.photoUrl,
-      data.gender,
-      data.phoneNumber,
-      data.message
-    );
-
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user.message);
         userProfile(data.name, data.photoUrl)
           .then(() => {
             const saveUser = {
@@ -38,7 +29,8 @@ const Register = () => {
               number: data.phoneNumber,
               address: data.address,
             };
-            fetch("http://localhost:5000/users", {
+            // console.log(saveUser);
+            fetch("http://localhost:5000/students", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -57,7 +49,6 @@ const Register = () => {
                     timer: 1500,
                   });
                 }
-                console.log(data);
               });
           })
           .catch((error) => {
@@ -69,7 +60,6 @@ const Register = () => {
         console.log(errorMessage);
       });
   };
-  console.log(errors);
 
   return (
     <div className="flex justify-center items-center mb-6">
