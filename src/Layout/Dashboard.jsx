@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const isAdmin = true;
-  const isInstructor = false;
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
 
   return (
     <div className="drawer lg:drawer-open">
@@ -74,8 +76,7 @@ const Dashboard = () => {
                 <Link to="/dashboard/payment">Payment History</Link>
               </li>
             </>
-          )
-          }
+          )}
           <div className="divider" />
           <li>
             <Link to="/">Home</Link>
