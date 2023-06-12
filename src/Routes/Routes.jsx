@@ -8,7 +8,7 @@ import Register from "../Pages/Shared/Register/Register";
 import Instructors from "../Pages/Instructors/Instructors";
 import Classes from "../Pages/Classes/Classes";
 import Dashboard from "../Layout/Dashboard";
-import PrivateRoute from "../Routes/PrivateRoute"
+import PrivateRoute from "../Routes/PrivateRoute";
 import SelectedClass from "../Dashboard/Student/SelectedClass";
 import EnrolledClass from "../Dashboard/Student/EnrolledClass";
 import Payment from "../Dashboard/Student/Payment";
@@ -16,6 +16,7 @@ import AddAClass from "../Dashboard/Instructor/AddAClass";
 import MyClass from "../Dashboard/Instructor/MyClass";
 import ManageClasses from "../Dashboard/Admin/ManageClasses";
 import ManageUsers from "../Dashboard/Admin/ManageUsers";
+import UpdateMyClass from "../Dashboard/Instructor/UpdateMyClass";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,12 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/myClasses",
         element: <MyClass />,
+      },
+      {
+        path: "/dashboard/updateMyClass/:id",
+        element: <UpdateMyClass />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/classes/${params.id}`),
       },
       // For Students
       {

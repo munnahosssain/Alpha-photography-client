@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -32,7 +33,9 @@ const MyClass = () => {
                 <td>{addStudent.name}</td>
                 <td>{addStudent.email}</td>
                 <td>{addStudent.status}</td>
-                <td>Update</td>
+                <td>
+                  <Link to={`/dashboard/updateMyClass/${addStudent._id}`}>Update</Link>
+                </td>
                 <td>Feedback</td>
               </tr>
             ))}
