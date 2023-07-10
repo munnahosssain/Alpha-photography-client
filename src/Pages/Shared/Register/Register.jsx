@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Register = () => {
   const { createUser, userProfile } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const {
     reset,
     register,
@@ -17,8 +17,8 @@ const Register = () => {
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then((result) => {
+        navigate("/");
         const user = result.user;
-        // console.log(user.message);
         userProfile(data.name, data.photoUrl)
           .then(() => {
             const saveUser = {
@@ -28,9 +28,9 @@ const Register = () => {
               gender: data.gender,
               number: data.phoneNumber,
               address: data.address,
+              role:'student'
             };
-            // console.log(saveUser);
-            fetch("https://alpha-photography-server.vercel.app/students", {
+            fetch("https://alpha-photography-server.vercel.app/student", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -69,12 +69,13 @@ const Register = () => {
       >
         <h2 className="text-2xl font-bold mb-6">Registration</h2>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="name">
+          <label className="text-gray-700 mb-2" htmlFor="name">
             Name
           </label>
           <input
             className="border border-gray-300 px-4 py-2 w-full"
             {...register("name", { required: "Name is required" })}
+            placeholder="Your Name"
             type="text"
             id="name"
           />
@@ -89,6 +90,7 @@ const Register = () => {
           <input
             className="border border-gray-300 px-4 py-2 w-full"
             {...register("email", { required: "Email is required" })}
+            placeholder="Enter your email"
             type="email"
             id="email"
           />
@@ -103,14 +105,17 @@ const Register = () => {
           <input
             className="border border-gray-300 px-4 py-2 w-full"
             {...register("password", { required: true, minLength: 6 })}
+            placeholder="Secret Password"
             type="password"
             id="password"
           />
           {errors.password?.type === "required" && (
-            <span>Password is required</span>
+            <span className="text-red-500">Password is required</span>
           )}
           {errors.password?.type === "minLength" && (
-            <span>Password must 6 characters or grater</span>
+            <span className="text-red-500">
+              Password must 6 characters or grater
+            </span>
           )}
         </div>
         <div className="mb-4">
@@ -122,6 +127,7 @@ const Register = () => {
             {...register("confirmPassword", {
               required: "Confirm Password is required",
             })}
+            placeholder="Confirm secret password"
             type="password"
             id="confirmPassword"
           />
@@ -137,10 +143,14 @@ const Register = () => {
           </label>
           <input
             className="border border-gray-300 px-4 py-2 w-full"
-            {...register("photoUrl")}
+            {...register("photoUrl", { required: "Photo URL is required" })}
+            placeholder="Photo link"
             type="text"
             id="photoUrl"
           />
+          {errors.email && (
+            <span className="text-red-500">{errors.photoUrl.message}</span>
+          )}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="gender">
@@ -148,13 +158,16 @@ const Register = () => {
           </label>
           <select
             className="border border-gray-300 px-4 py-2 w-full"
-            {...register("gender")}
+            {...register("gender", { required: "Required" })}
           >
             <option value="">Select</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
+          {errors.email && (
+            <span className="text-red-500">{errors.gender.message}</span>
+          )}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="phoneNumber">
@@ -162,10 +175,16 @@ const Register = () => {
           </label>
           <input
             className="border border-gray-300 px-4 py-2 w-full"
-            {...register("phoneNumber")}
+            {...register("phoneNumber", {
+              required: "Phone number is required",
+            })}
+            placeholder="Enter your number"
             type="tel"
             id="phoneNumber"
           />
+          {errors.email && (
+            <span className="text-red-500">{errors.phoneNumber.message}</span>
+          )}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="address">
@@ -173,9 +192,13 @@ const Register = () => {
           </label>
           <textarea
             className="border border-gray-300 px-4 py-2 w-full"
-            {...register("address")}
+            {...register("address", { required: "Required" })}
+            placeholder="Your Address"
             id="address"
-          ></textarea>
+          />
+          {errors.email && (
+            <span className="text-red-500">{errors.address.message}</span>
+          )}
         </div>
         <button
           className="btn-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"

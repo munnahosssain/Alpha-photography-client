@@ -52,6 +52,7 @@ const Navbar = () => {
       )}
     </>
   );
+  
   return (
     <div className=" lg:mx-48">
       <div className="navbar bg-base-100">

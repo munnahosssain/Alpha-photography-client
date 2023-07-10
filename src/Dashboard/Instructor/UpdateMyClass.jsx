@@ -16,7 +16,6 @@ const UpdateMyClass = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     fetch(`https://alpha-photography-server.vercel.app/classes/${_id}`, {
       method: "PATCH",
       headers: {
@@ -82,14 +81,14 @@ const UpdateMyClass = () => {
         </label>
         <input
           className="border border-gray-300 px-4 py-2 w-full"
-          {...register("seats", { required: "Seat is required" })}
+          {...register("available_seats", { required: "Seat is required" })}
           placeholder="Enterer available seats"
           defaultValue={available_seats}
           type="text"
           id="Available Seats"
         />
-        {errors.seats && (
-          <span className="text-red-500">{errors.seats.message}</span>
+        {errors.available_seats && (
+          <span className="text-red-500">{errors.available_seats.message}</span>
         )}
       </div>
       <div className="mb-4">

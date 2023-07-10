@@ -48,17 +48,17 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      // if (currentUser) {
-      //   axios
-      //     .post("https://alpha-photography-server.vercel.app/jwt", { email: currentUser.email })
-      //     .then((data) => {
-      //       console.log(data.data.token);
-      //       localStorage.setItem("access-token", data.data.token);
-      //       setLoading(false);
-      //     });
-      // } else {
-      //   localStorage.removeItem("access-token");
-      // }
+      if (currentUser) {
+        axios
+          .post("https://alpha-photography-server.vercel.app/jwt", { email: currentUser.email })
+          .then((data) => {
+            // console.log(data.data.token);
+            localStorage.setItem("access-token", data.data.token);
+            setLoading(false);
+          });
+      } else {
+        localStorage.removeItem("access-token");
+      }
     });
     return () => {
       return unsubscribe();

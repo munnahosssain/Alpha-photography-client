@@ -7,13 +7,12 @@ const ManageUsers = () => {
     const res = await fetch(
       "https://alpha-photography-server.vercel.app/students"
     );
-    console.log(students);
     return res.json();
   });
 
-  const [isAdmin, isAdminLoading] = useAdmin();
-  console.log(isAdmin);
-
+  const handleInstructor= ()=>{}
+  const handleAdmin= ()=>{}
+  
   return (
     <div>
       <div className="overflow-x-auto">
@@ -23,6 +22,7 @@ const ManageUsers = () => {
               <th>#</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Role</th>
               <th>Instructor</th>
               <th>Admin</th>
             </tr>
@@ -33,9 +33,17 @@ const ManageUsers = () => {
                 <th>{index + 1}</th>
                 <td>{student.name}</td>
                 <td>{student.email}</td>
-                <td>instructor</td>
-                <td>ADMIN</td>
-                {/* <td>{student.role}</td> */}
+                <td>{student.role}</td>
+                <td>
+                  <button onClick={handleInstructor} className="btn btn-xs rounded-none bg-gray-500 text-white">
+                    Instructor
+                  </button>
+                </td>
+                <td>
+                  <button onClick={handleAdmin} className="btn btn-xs rounded-none bg-red-500 text-white">
+                    Admin
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

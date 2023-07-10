@@ -28,6 +28,8 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: ({ params }) =>
+          fetch(`https://alpha-photography-server.vercel.app/classes`),
       },
       {
         path: "/instructors",
@@ -66,9 +68,12 @@ const router = createBrowserRouter([
       },
       {
         path: "feedback/:id",
-        element: <Feedback></Feedback>,
-        loader: ({ params }) => fetch(`https://alpha-photography-server.vercel.app/feedback/${params.id}`)
-    },
+        element: <Feedback />,
+        loader: ({ params }) =>
+          fetch(
+            `https://alpha-photography-server.vercel.app/feedback/${params.id}`
+          ),
+      },
       // For Instructor
       {
         path: "/dashboard/addAClass",
@@ -82,7 +87,9 @@ const router = createBrowserRouter([
         path: "/dashboard/updateMyClass/:id",
         element: <UpdateMyClass />,
         loader: ({ params }) =>
-          fetch(`https://alpha-photography-server.vercel.app/classes/${params.id}`),
+          fetch(
+            `https://alpha-photography-server.vercel.app/classes/${params.id}`
+          ),
       },
       // For Students
       {

@@ -46,7 +46,6 @@ const ManageClasses = () => {
               <th>Image</th>
               <th>Class Name</th>
               <th>Instructor Name</th>
-              <th>Instructor Email</th>
               <th>Available Seats</th>
               <th>Price</th>
               <th>Approve</th>
@@ -64,14 +63,13 @@ const ManageClasses = () => {
                       <img
                         className="rounded-md"
                         src={classes.image}
-                        alt="class"
+                        alt="class thumbnail"
                       />
                     </div>
                   </div>
                 </td>
                 <td>{classes.name}</td>
                 <td>{classes.instructor}</td>
-                <td>{classes.email}</td>
                 <td className="text-center">{classes.available_seats}</td>
                 <td className="">${classes.price}</td>
                 <td>

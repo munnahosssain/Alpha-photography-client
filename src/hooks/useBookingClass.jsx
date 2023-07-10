@@ -4,13 +4,10 @@ import useAuth from "./useAuth";
 
 const useBookingClass = () => {
   const [axiosSecure] = useAxiosSecure();
-  //   const {isLoading,data:bookingClass=[]}
   const { user, loading } = useAuth();
   const {
     isLoading,
     data: myClasses = [],
-    isError,
-    error,
     refetch,
   } = useQuery(["myClasses"], {
     queryFn: async () => {

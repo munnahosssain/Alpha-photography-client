@@ -7,7 +7,7 @@ const MyClass = () => {
   const { user } = useAuth();
   const { data: student = [], refetch } = useQuery(["students"], async () => {
     const res = await fetch(
-      `https://alpha-photography-server.vercel.app/student?email=${user?.email}`
+      `https://alpha-photography-server.vercel.app/students?email=${user?.email}`
     );
     return res.json();
   });
@@ -19,7 +19,7 @@ const MyClass = () => {
           <thead>
             <tr className="bg-base-200">
               <th>#</th>
-              <th>Name</th>
+              <th>Class Name</th>
               <th>Email</th>
               <th>Available</th>
               <th>Status</th>
@@ -33,10 +33,15 @@ const MyClass = () => {
                 <th>{index + 1}</th>
                 <td>{addStudent.name}</td>
                 <td>{addStudent.email}</td>
-                <td>{addStudent.seats}</td>
+                <td>{addStudent.available_seats}</td>
                 <td>{addStudent.status}</td>
                 <td>
-                  <Link to={`/dashboard/updateMyClass/${addStudent._id}`}>Update</Link>
+                  <Link
+                    to={`/dashboard/updateMyClass/${addStudent._id}`}
+                    className="btn btn-xs"
+                  >
+                    Update
+                  </Link>
                 </td>
                 <td>Feedback</td>
               </tr>

@@ -2,14 +2,16 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import login from "../../../assets/images/login.png";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { BsEyeSlashFill, BsEyeFill } from "react-icons/bs";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { loginUser, googleSignIn } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const handleShowPassword = () => {
     setShow(!show);
@@ -26,7 +28,16 @@ const Login = () => {
     loginUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        if (result) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Login Successful!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+        navigate("/");
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -34,7 +45,7 @@ const Login = () => {
       });
   };
 
-  const handlegoogleSignIn = () => {
+  const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
@@ -45,9 +56,9 @@ const Login = () => {
   };
 
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+    <div className="min-h-screen bg-base-200">
+      <div className="mx-auto hero-content flex-col lg:flex-row-reverse">
+        <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <h1 className="text-5xl font-bold text-center">Login now!</h1>
             <img src={login} alt="login image" />
@@ -74,7 +85,8 @@ const Login = () => {
                 <input
                   className="border border-gray-300 px-4 py-2 w-full"
                   {...register("password", {
-                    required: "Password is required",
+                    required: true,
+                    minLength: 6,
                   })}
                   type={show ? "text" : "password"}
                   id="password"
@@ -92,10 +104,16 @@ const Login = () => {
                   />
                 )}
               </div>
-              {errors.password && (
-                <span className="text-red-500">{errors.password.message}</span>
+              {errors.password?.type === "required" && (
+                <span className="text-red-500">Password is required</span>
+              )}
+              {errors.password?.type === "minLength" && (
+                <span className="text-red-500">
+                  Password must 6 characters or grater
+                </span>
               )}
             </div>
+
             <p className="text-warning -mt-4 mb-2">{error}</p>
             <div className="form-control mt-6">
               <button className="btn -mt-8">Login</button>
@@ -111,7 +129,7 @@ const Login = () => {
               </Link>
             </label>
           </form>
-          <button onClick={handlegoogleSignIn} className="btn w-full -mt-6">
+          <button onClick={handleGoogleSignIn} className="btn w-full -mt-6">
             <FcGoogle size={32} />
           </button>
         </div>
